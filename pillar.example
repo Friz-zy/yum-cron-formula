@@ -1,0 +1,3 @@
+yum-cron:
+  update_cmd: minimal
+  email: admin@example.com
