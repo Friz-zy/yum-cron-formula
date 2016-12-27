@@ -4,7 +4,7 @@ packages:
       - yum-cron
       - mailx
 
-{% if 1 == salt['cmd.retcode']('test -f /etc/yum/yum-cron.conf') %}
+{% if 0 == salt['cmd.retcode']('test -f /etc/yum/yum-cron.conf') %}
 /etc/yum/yum-cron.conf:
   file.managed:
     - template: jinja
@@ -12,9 +12,11 @@ packages:
     - group: root
     - mode: 644
     - source: salt://yum-cron/templates/yum-cron_conf.jinja
+    - watch:
+      - pkg: packages
 {% endif %}
 
-{% if 1 == salt['cmd.retcode']('test -f /etc/sysconfig/yum-cron') %}
+{% if 0 == salt['cmd.retcode']('test -f /etc/sysconfig/yum-cron') %}
 /etc/sysconfig/yum-cron:
   file.managed:
     - template: jinja
@@ -22,6 +24,8 @@ packages:
     - group: root
     - mode: 644
     - source: salt://yum-cron/templates/yum-cron.jinja
+    - watch:
+      - pkg: packages
 {% endif %}
 
 yum-cron:
