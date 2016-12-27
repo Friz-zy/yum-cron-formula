@@ -45,7 +45,7 @@ system_name = None
 # If emit_via is None or left blank, no messages will be sent.
 {% if email -%}
 emit_via = email
-{% elif -%}
+{% else -%}
 emit_via = stdio
 {% endif -%}
 
