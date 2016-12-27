@@ -34,6 +34,9 @@ yum-cron:
     - enable: True
     - watch:
       - pkg: packages
+{% if 0 == salt['cmd.retcode']('test -f /etc/yum/yum-cron.conf') -%}
       - file: /etc/yum/yum-cron.conf
+{% endif -%}
+{% if 0 == salt['cmd.retcode']('test -f /etc/sysconfig/yum-cron') -%}
       - file: /etc/sysconfig/yum-cron
-
+{% endif -%}
