@@ -2,7 +2,7 @@ packages:
   pkg.installed:
     - pkgs:
       - yum-cron
-      - postfix
+      - mailx
 
 {% if 1 == salt['cmd.retcode']('test -f /etc/yum/yum-cron.conf') %}
 /etc/yum/yum-cron.conf:
@@ -33,9 +33,3 @@ yum-cron:
       - file: /etc/yum/yum-cron.conf
       - file: /etc/sysconfig/yum-cron
 
-postfix:
-  service:
-    - running
-    - enable: True
-    - watch:
-      - pkg: packages
