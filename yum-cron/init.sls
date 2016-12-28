@@ -4,7 +4,6 @@ packages:
       - yum-cron
       - mailx
 
-{% if 0 == salt['cmd.retcode']('test -f /etc/yum/yum-cron.conf') %}
 /etc/yum/yum-cron.conf:
   file.managed:
     - template: jinja
@@ -14,9 +13,7 @@ packages:
     - source: salt://yum-cron/templates/yum-cron_conf.jinja
     - watch:
       - pkg: packages
-{% endif %}
 
-{% if 0 == salt['cmd.retcode']('test -f /etc/sysconfig/yum-cron') %}
 /etc/sysconfig/yum-cron:
   file.managed:
     - template: jinja
@@ -26,7 +23,6 @@ packages:
     - source: salt://yum-cron/templates/yum-cron.jinja
     - watch:
       - pkg: packages
-{% endif %}
 
 yum-cron:
   service:
@@ -34,9 +30,5 @@ yum-cron:
     - enable: True
     - watch:
       - pkg: packages
-{% if 0 == salt['cmd.retcode']('test -f /etc/yum/yum-cron.conf') %}
       - file: /etc/yum/yum-cron.conf
-{% endif %}
-{% if 0 == salt['cmd.retcode']('test -f /etc/sysconfig/yum-cron') %}
       - file: /etc/sysconfig/yum-cron
-{% endif %}
